@@ -1,0 +1,111 @@
+// ===============================
+// Prisma Client Generator
+// ===============================
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/client_v2"
+}
+
+// ===============================
+// PostgreSQL Datasource
+// ===============================
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ===============================
+// USER MODEL
+// ===============================
+model User {
+  id          String       @id @default(cuid())
+  name        String
+  email       String       @unique
+  password    String
+  role        Role         @default(STUDENT)
+  status      String       @default("ACTIVE") // User status: ACTIVE, INACTIVE, SUSPENDED, etc.
+  passport    String? // URL for user's passport/profile photo
+  notes       Note[]
+  blogs       Blog[]
+  enrollments Enrollment[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+// ===============================
+// NOTE MODEL (Student Notes)
+// ===============================
+model Note {
+  id        String   @id @default(cuid())
+  title     String
+  content   String
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ===============================
+// BLOG MODEL (Admin Blogs)
+// ===============================
+model Blog {
+  id        String   @id @default(cuid())
+  title     String
+  slug      String   @unique
+  content   String
+  photo     String? // URL for blog header image
+  category  String? // Category like "Web Dev", "AI", etc.
+  readTime  String? // Estimated reading time
+  published Boolean  @default(true)
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ===============================
+// COURSE MODEL
+// ===============================
+model Course {
+  id          String       @id @default(cuid())
+  name        String
+  description String?
+  instructor  String
+  status      String       @default("Active") // Active, Inactive
+  enrollments Enrollment[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+// ===============================
+// ENROLLMENT MODEL
+// ===============================
+model Enrollment {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  courseId  String
+  course    Course   @relation(fields: [courseId], references: [id])
+  createdAt DateTime @default(now())
+
+  @@unique([userId, courseId])
+}
+
+// ===============================
+// ROLE ENUM
+// ===============================
+enum Role {
+  STUDENT
+  STAFF
+  ADMIN
+}
+
+// ===============================
+// NEWSLETTER MODEL
+// ===============================
+model Newsletter {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

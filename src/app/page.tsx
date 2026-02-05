@@ -1,65 +1,230 @@
+// Importing Link component from Next.js for client-side navigation
+import Link from "next/link";
+// Importing Image component from Next.js for optimized image rendering
 import Image from "next/image";
+// Importing the prisma client instance to interact with the database
+import { prisma } from "@/lib/prisma";
+// Importing the HeroCarousel component to display a rotating banner
+import HeroCarousel from "@/components/HeroCarousel";
+// Importing the NewsletterSection component for user subscriptions
+import NewsletterSection from "@/components/NewsletterSection";
 
-export default function Home() {
+// Defining the HomePage functional component as an async function for data fetching
+export default async function HomePage() {
+  // Fetching the latest blog posts directly from the database using Prisma
+  const blogs = await prisma.blog.findMany({
+    // Limiting the initial fetch to 10 entries to filter in memory later
+    take: 10,
+    // Ordering the results by creation date in descending order to get the newest first
+    orderBy: { createdAt: 'desc' },
+    // Including the author information to display their name on the blog cards
+    include: {
+      author: {
+        // Only selecting the name field from the author table
+        select: { name: true }
+      }
+    }
+  });
+
+  // Filtering the fetched blogs in memory to include only those that are published
+  const latestBlogs = blogs
+    // Removing any blog posts where the published status is explicitly set to false
+    .filter(blog => blog.published !== false)
+    // Slicing the array to keep only the top 3 most recent published blogs
+    .slice(0, 3)
+    // Mapping the database results into a more usable format for the frontend
+    .map(blog => ({
+      // Unique identifier for the blog post
+      id: blog.id,
+      // Title of the blog post
+      title: blog.title,
+      // Excerpt or content of the blog post
+      content: blog.content,
+      // Photo URL or a fallback image if no photo is provided in the database
+      photo: blog.photo || "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&auto=format&fit=crop&q=60",
+      // Author's name or a fallback "Admin" if no author information exists
+      author: blog.author?.name || "Admin",
+      // Formatting the creation date into a human-readable string
+      date: new Date(blog.createdAt).toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+      }),
+      // Category of the blog or a fallback "General" category
+      category: blog.category || "General",
+      // Estimated read time or a default "5 min read" string
+      readTime: blog.readTime || "5 min read",
+    }));
+
+  // Returning the JSX structure for the home page
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    // Main container for the home page content
+    <main>
+      {/* Rendering the Hero Section which includes the image carousel */}
+      <HeroCarousel />
+
+      {/* Courses Section: Showcasing the primary learning paths */}
+      <section className="py-24 px-4 bg-white">
+        {/* Centered container for the courses content */}
+        <div className="max-w-7xl mx-auto text-center">
+          {/* Main heading for the core courses section */}
+          <h2 className="text-4xl font-bold mb-4 text-gray-900">Our Core Courses</h2>
+          {/* Subheading text explaining the goal of the courses */}
+          <p className="text-gray-500 mb-16 max-w-2xl mx-auto">We provide industry-relevant training to help you master the most in-demand skills in today&apos;s tech market.</p>
+          {/* Responsive grid for displaying course cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+            {/* Course Card 1: Web/Mobile App Development */}
+            <div className="bg-gray-50 rounded-3xl p-10 hover:shadow-2xl hover:shadow-blue-100 transition-all duration-500 border border-gray-100 group">
+              {/* Icon container with hover animation effects */}
+              <div className="h-14 w-14 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-500">
+                {/* SVG icon representing code and development */}
+                <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
+              </div>
+              {/* Course Title */}
+              <h3 className="font-bold text-2xl mb-4 text-gray-900">Web/Mobile App Development</h3>
+              {/* Course Description */}
+              <p className="text-gray-600 leading-relaxed">Master the art of building modern, responsive web & Mobile using Best Development and coding programming tools.</p>
+            </div>
+            {/* Course Card 2: Computer Training */}
+            <div className="bg-gray-50 rounded-3xl p-10 hover:shadow-2xl hover:shadow-blue-100 transition-all duration-500 border border-gray-100 group">
+              {/* Icon container with hover animation effects */}
+              <div className="h-14 w-14 bg-green-100 text-green-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-green-600 group-hover:text-white transition-colors duration-500">
+                {/* SVG icon representing computer basics and office work */}
+                <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+              </div>
+              {/* Course Title */}
+              <h3 className="font-bold text-2xl mb-4 text-gray-900">Computer Training</h3>
+              {/* Course Description */}
+              <p className="text-gray-600 leading-relaxed">Perfect for beginners. Learn fundamental computer operations, office suites, and internet essentials and Special Packages.</p>
+            </div>
+            {/* Course Card 3: Updated to Computer Repairs and Engineering */}
+            <div className="bg-gray-50 rounded-3xl p-10 hover:shadow-2xl hover:shadow-blue-100 transition-all duration-500 border border-gray-100 group">
+              {/* Icon container with hover animation effects - updated color to purple */}
+              <div className="h-14 w-14 bg-purple-100 text-purple-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-purple-600 group-hover:text-white transition-colors duration-500">
+                {/* SVG icon representing engineering and repairs (wrench icon) */}
+                <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.77 3.77z" /></svg>
+              </div>
+              {/* Updated Course Title */}
+              <h3 className="font-bold text-2xl mb-4 text-gray-900">Computer Repairs and engineering</h3>
+              {/* Updated Course Description */}
+              <p className="text-gray-600 leading-relaxed">Learn the hardware side of technology. Master troubleshooting, component replacement, and systems engineering for modern computers.</p>
+            </div>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* Testimonials Section: Highlighting student experiences */}
+      <section className="bg-gray-50 py-24 px-4 overflow-hidden relative">
+        {/* Centered container for success stories */}
+        <div className="max-w-5xl mx-auto text-center relative z-10">
+          {/* Section Heading */}
+          <h2 className="text-4xl font-bold mb-16 text-gray-900">Success Stories</h2>
+          {/* Grid for testimonial cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            {/* Testimonial Card 1 */}
+            <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 relative">
+              {/* Decorative quotation mark */}
+              <div className="absolute -top-6 left-8 text-6xl text-blue-200">&quot;</div>
+              {/* Testimonial text */}
+              <p className="text-gray-700 italic text-lg mb-6 leading-relaxed">&quot;This institute transformed my career! The instructors are experts and the hands-on projects gave me the confidence I needed to land my first developer role.&quot;</p>
+              {/* Student info container */}
+              <div className="flex items-center gap-4">
+                {/* Avatar placeholder with initials */}
+                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold">JD</div>
+                {/* Student name and job title */}
+                <div className="text-left">
+                  <p className="font-bold text-gray-900">Jerry Amazie</p>
+                  <p className="text-sm text-gray-500">Frontend Developer at TechNova</p>
+                </div>
+              </div>
+            </div>
+            {/* Testimonial Card 2 */}
+            <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 relative">
+              {/* Decorative quotation mark */}
+              <div className="absolute -top-6 left-8 text-6xl text-blue-200">&quot;</div>
+              {/* Testimonial text */}
+              <p className="text-gray-700 italic text-lg mb-6 leading-relaxed">&quot;I landed a job immediately after learning here. The curriculum is perfectly aligned with what employers are looking for in 2026.&quot;</p>
+              {/* Student info container */}
+              <div className="flex items-center gap-4">
+                {/* Avatar placeholder with initials */}
+                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-green-600 font-bold">JS</div>
+                {/* Student name and job title */}
+                <div className="text-left">
+                  <p className="font-bold text-gray-900">Miracle Rebecca John</p>
+                  <p className="text-sm text-gray-500">IT Specialist at Global Systems</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </main>
-    </div>
+      </section>
+
+      {/* Latest Blog Section: Displaying the recently fetched blog posts */}
+      <section className="py-24 px-4 bg-white">
+        {/* Main container for the blog section */}
+        <div className="max-w-7xl mx-auto">
+          {/* Header area for the blog section with title and "Show all" link */}
+          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+            {/* Left side: Heading and description */}
+            <div className="max-w-2xl">
+              <h2 className="text-4xl font-bold mb-4 text-gray-900">Latest from Our Blog</h2>
+              <p className="text-gray-500 text-lg font-light">Stay updated with the latest trends and insights in the world of technology, robotics, and software engineering.</p>
+            </div>
+            {/* Right side: Button to navigate to the full blog page */}
+            <Link href="/blog" className="inline-flex items-center gap-2 bg-blue-600 text-white px-8 py-4 rounded-2xl font-bold hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl shadow-blue-100 whitespace-nowrap">
+              Show all Blogs
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+            </Link>
+          </div>
+
+          {/* Grid layout for blog post cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+            {/* Mapping over the latestBlogs array to render each post card */}
+            {latestBlogs.map((blog) => (
+              // Article container for a single blog post
+              <article key={blog.id} className="group flex flex-col h-full bg-gray-50 rounded-3xl overflow-hidden border border-gray-100 hover:shadow-2xl hover:shadow-blue-50 transition-all duration-500">
+                {/* Image container for the blog post thumbnail */}
+                <div className="relative h-56 overflow-hidden">
+                  {/* Blog post thumbnail image */}
+                  <Image
+                    src={blog.photo}
+                    alt={blog.title}
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                  {/* Category badge displayed over the image */}
+                  <div className="absolute top-4 left-4">
+                    <span className="bg-white/90 backdrop-blur-md text-blue-600 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">
+                      {blog.category}
+                    </span>
+                  </div>
+                </div>
+                {/* Content container for blog title and excerpt */}
+                <div className="p-8 flex flex-col flex-grow">
+                  {/* Date of the blog post */}
+                  <div className="text-sm text-gray-400 font-medium mb-3">{blog.date}</div>
+                  {/* Blog title with a link to the specific post */}
+                  <h3 className="text-xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors line-clamp-2">
+                    <Link href={`/blog/${blog.id}`}>{blog.title}</Link>
+                  </h3>
+                  {/* Truncated blog content excerpt */}
+                  <p className="text-gray-600 mb-6 line-clamp-3 flex-grow leading-relaxed">
+                    {blog.content}
+                  </p>
+                  {/* Link to read the full article */}
+                  <Link href={`/blog/${blog.id}`} className="text-blue-600 font-bold text-sm flex items-center gap-2 mt-auto">
+                    Read Article
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                  </Link>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Rendering the Newsletter Section at the bottom of the page */}
+      <NewsletterSection />
+    </main>
   );
 }
