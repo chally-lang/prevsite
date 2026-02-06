@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server'; // Import NextResponse for API handling
+import { NextRequest, NextResponse } from 'next/server'; // Import NextResponse for API handling
 import { prisma } from '../../../../lib/prisma'; // Import prisma client for database access using relative path
 import { getServerSession } from "next-auth"; // Import getServerSession for authentication
 import { authOptions } from "@/lib/auth"; // Import authOptions for session verification
@@ -7,7 +7,7 @@ import { authOptions } from "@/lib/auth"; // Import authOptions for session veri
 // GET SINGLE USER - Admin view
 // ==========================================
 export async function GET(
-  req: Request,
+  req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
