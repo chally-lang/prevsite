@@ -3,8 +3,7 @@ import { prisma } from "@/lib/prisma"; // Import prisma client using alias
 import { getServerSession } from "next-auth"; // Import getServerSession for authentication
 import { authOptions } from "@/lib/auth"; // Import authOptions for session verification
 import { hash } from "bcryptjs"; // Import hash for password encryption
-import { Role } from "@prisma/client";
-// Import Role enum
+import { Prisma } from "@prisma/client"; // ✅ Correct enum access
 
 // ==========================================
 // GET ALL USERS - Admin only view
@@ -85,7 +84,7 @@ export async function POST(req: Request) {
       data: {
         name,
         email,
-        role: role as Role,
+        role: role as Prisma.Role, // ✅ Correct enum cast
         password: hashedPassword,
         status: "ACTIVE",
       },
