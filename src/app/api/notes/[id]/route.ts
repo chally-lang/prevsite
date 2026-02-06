@@ -1,11 +1,11 @@
-import { NextResponse } from "next/server"; // Import NextResponse for API responses
+import { NextRequest, NextResponse } from "next/server"; // Import NextResponse for API responses
 import { prisma } from "@/lib/prisma"; // Import Prisma client for DB access
 import { getServerSession } from "next-auth"; // Import getServerSession for authentication
 import { authOptions } from "@/lib/auth"; // Import authOptions for session verification
 
 // Handle PUT requests to update a note
 export async function PUT( // Define PUT handler
-  request: Request, // Request object
+  request: NextRequest, // Request object
   { params }: { params: Promise<{ id: string }> } // Route parameters
 ) {
   try { // Start of try-catch block
@@ -72,7 +72,7 @@ export async function PUT( // Define PUT handler
 
 // Handle DELETE requests to remove a note
 export async function DELETE( // Define DELETE handler
-  request: Request, // Request object
+  request: NextRequest, // Request object
   { params }: { params: Promise<{ id: string }> } // Route parameters
 ) {
   try { // Start of try-catch
