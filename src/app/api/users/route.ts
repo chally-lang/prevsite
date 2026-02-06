@@ -3,7 +3,8 @@ import { prisma } from "@/lib/prisma"; // Import prisma client using alias
 import { getServerSession } from "next-auth"; // Import getServerSession for authentication
 import { authOptions } from "@/lib/auth"; // Import authOptions for session verification
 import { hash } from "bcryptjs"; // Import hash for password encryption
-import { Role } from "../../generated/client"; // Import Role enum
+import { Role } from "@prisma/client";
+// Import Role enum
 
 // ==========================================
 // GET ALL USERS - Admin only view
