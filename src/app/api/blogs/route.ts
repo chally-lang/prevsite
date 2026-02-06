@@ -28,23 +28,26 @@ export async function GET(req: Request) {
       return NextResponse.json(blogs);
     }
 
+    // **TypeScript fix - define blog type**
+    type BlogType = typeof blogs[number];
+
     // Transform to match expected UI format and filter in-memory for public view
     const transformedBlogs = blogs
-      .filter(blog => blog.published !== false) // Only show published blogs to the public
-      .map(blog => ({
-      id: blog.id,
-      title: blog.title,
-      content: blog.content,
-      photo: blog.photo || "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&auto=format&fit=crop&q=60", // Default image if none provided
-      author: blog.author?.name || "Admin", // Fallback author name
-      date: new Date(blog.createdAt).toLocaleDateString('en-US', { // Format date for display
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric',
-      }),
-      category: blog.category || "General",
-      readTime: blog.readTime || "5 min read",
-    }));
+      .filter((blog: BlogType) => blog.published !== false) // Only show published blogs to the public
+      .map((blog: BlogType) => ({
+        id: blog.id,
+        title: blog.title,
+        content: blog.content,
+        photo: blog.photo || "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&auto=format&fit=crop&q=60", // Default image if none provided
+        author: blog.author?.name || "Admin", // Fallback author name
+        date: new Date(blog.createdAt).toLocaleDateString('en-US', { // Format date for display
+          month: 'short',
+          day: 'numeric',
+          year: 'numeric',
+        }),
+        category: blog.category || "General",
+        readTime: blog.readTime || "5 min read",
+      }));
 
     return NextResponse.json(transformedBlogs); // Return the transformed list of blogs
   } catch (error) {
