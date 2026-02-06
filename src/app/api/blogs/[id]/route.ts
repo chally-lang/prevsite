@@ -1,11 +1,11 @@
-import { NextResponse } from 'next/server'; // Import NextResponse for API responses
+import { NextRequest, NextResponse } from 'next/server'; // Import NextResponse for API responses
 import { prisma } from '../../../../lib/prisma'; // Import prisma client for DB operations using relative path
 
 // ==========================================
 // UPDATE BLOG (PUT) - Handles editing and publishing/unpublishing
 // ==========================================
 export async function PUT(
-  req: Request, // The incoming request object
+  req: NextRequest, // The incoming request object
   { params }: { params: Promise<{ id: string }> } // Route parameters containing the blog ID
 ) {
   try {
