@@ -1,3 +1,5 @@
+
+
 // Importing Link component from Next.js for client-side navigation
 import Link from "next/link";
 // Importing Image component from Next.js for optimized image rendering
@@ -8,6 +10,8 @@ import { prisma } from "@/lib/prisma";
 import HeroCarousel from "@/components/HeroCarousel";
 // Importing the NewsletterSection component for user subscriptions
 import NewsletterSection from "@/components/NewsletterSection";
+// Importing Blog type for TypeScript safety
+import { Blog } from "@/generated/client_v2";
 
 // Defining the HomePage functional component as an async function for data fetching
 export default async function HomePage() {
@@ -29,7 +33,7 @@ export default async function HomePage() {
   // Filtering the fetched blogs in memory to include only those that are published
   const latestBlogs = blogs
     // Removing any blog posts where the published status is explicitly set to false
-    .filter(blog => blog.published !== false)
+    .filter((blog: Blog) => blog.published !== false)
     // Slicing the array to keep only the top 3 most recent published blogs
     .slice(0, 3)
     // Mapping the database results into a more usable format for the frontend
