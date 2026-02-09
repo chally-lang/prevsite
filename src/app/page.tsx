@@ -1,7 +1,3 @@
-
-
-
-
 // Importing Link component from Next.js for client-side navigation
 import Link from "next/link";
 // Importing Image component from Next.js for optimized image rendering
@@ -39,7 +35,7 @@ export default async function HomePage() {
     // Slicing the array to keep only the top 3 most recent published blogs
     .slice(0, 3)
     // Mapping the database results into a more usable format for the frontend
-    .map(blog => ({
+    .map((blog: Blog) => ({
       // Unique identifier for the blog post
       id: blog.id,
       // Title of the blog post
@@ -234,8 +230,3 @@ export default async function HomePage() {
     </main>
   );
 }
-
-
-
-
-
