@@ -11,6 +11,18 @@ import NewsletterSection from "@/components/NewsletterSection";
 // Importing Blog type for TypeScript safety
 import { Blog } from "@/generated/client_v2";
 
+// Defining type for the mapped blog structure
+type LatestBlog = {
+  id: string;
+  title: string;
+  content: string;
+  photo: string;
+  author: string;
+  date: string;
+  category: string;
+  readTime: string;
+};
+
 // Defining the HomePage functional component as an async function for data fetching
 export default async function HomePage() {
   // Fetching the latest blog posts directly from the database using Prisma
@@ -20,11 +32,10 @@ export default async function HomePage() {
     // Ordering the results by creation date in descending order to get the newest first
     orderBy: { createdAt: 'desc' },
     // Including the author information to display their name on the blog cards
- 
   });
 
   // Filtering the fetched blogs in memory to include only those that are published
-  const latestBlogs = blogs
+  const latestBlogs: LatestBlog[] = blogs
     // Removing any blog posts where the published status is explicitly set to false
     .filter((blog: Blog) => blog.published !== false)
     // Slicing the array to keep only the top 3 most recent published blogs
