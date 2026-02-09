@@ -20,12 +20,7 @@ export default async function HomePage() {
     // Ordering the results by creation date in descending order to get the newest first
     orderBy: { createdAt: 'desc' },
     // Including the author information to display their name on the blog cards
-    include: {
-      author: {
-        // Only selecting the name field from the author table
-        select: { name: true }
-      }
-    }
+ 
   });
 
   // Filtering the fetched blogs in memory to include only those that are published
@@ -45,7 +40,7 @@ export default async function HomePage() {
       // Photo URL or a fallback image if no photo is provided in the database
       photo: blog.photo || "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&auto=format&fit=crop&q=60",
       // Author's name or a fallback "Admin" if no author information exists
-      author: blog.author?.name || "Admin",
+      author: "Admin",
       // Formatting the creation date into a human-readable string
       date: new Date(blog.createdAt).toLocaleDateString('en-US', {
         month: 'short',
