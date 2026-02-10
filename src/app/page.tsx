@@ -2,9 +2,7 @@
 import Link from "next/link";
 // Importing Image component from Next.js for optimized image rendering
 import Image from "next/image";
-// Importing the prisma client instance to interact with the database
-import { prisma } from "@/lib/prisma";
-// Importing the HeroCarousel component to display a rotating banner
+// Importing HeroCarousel component to display a rotating banner
 import HeroCarousel from "@/components/HeroCarousel";
 // Importing the NewsletterSection component for user subscriptions
 import NewsletterSection from "@/components/NewsletterSection";
@@ -25,14 +23,13 @@ type LatestBlog = {
 
 // Defining the HomePage functional component as an async function for data fetching
 export default async function HomePage() {
-  // Fetching the latest blog posts directly from the database using Prisma
-  const blogs = await prisma.blog.findMany({
-    // Limiting the initial fetch to 10 entries to filter in memory later
-    take: 10,
-    // Ordering the results by creation date in descending order to get the newest first
-    orderBy: { createdAt: 'desc' },
-    // Including the author information to display their name on the blog cards
+  // Fetching the latest blog posts from our API endpoint
+  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || ""}/api/blogs`, {
+    cache: "no-store",
   });
+
+  // Parse response JSON
+  const blogs: Blog[] = await response.json();
 
   // Filtering the fetched blogs in memory to include only those that are published
   const latestBlogs: LatestBlog[] = blogs
@@ -53,10 +50,10 @@ export default async function HomePage() {
       // Author's name or a fallback "Admin" if no author information exists
       author: "Admin",
       // Formatting the creation date into a human-readable string
-      date: new Date(blog.createdAt).toLocaleDateString('en-US', {
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric',
+      date: new Date(blog.createdAt).toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
       }),
       // Category of the blog or a fallback "General" category
       category: blog.category || "General",
@@ -78,7 +75,9 @@ export default async function HomePage() {
           {/* Main heading for the core courses section */}
           <h2 className="text-4xl font-bold mb-4 text-gray-900">Our Core Courses</h2>
           {/* Subheading text explaining the goal of the courses */}
-          <p className="text-gray-500 mb-16 max-w-2xl mx-auto">We provide industry-relevant training to help you master the most in-demand skills in today&apos;s tech market.</p>
+          <p className="text-gray-500 mb-16 max-w-2xl mx-auto">
+            We provide industry-relevant training to help you master the most in-demand skills in today&apos;s tech market.
+          </p>
           {/* Responsive grid for displaying course cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {/* Course Card 1: Web/Mobile App Development */}
@@ -86,36 +85,48 @@ export default async function HomePage() {
               {/* Icon container with hover animation effects */}
               <div className="h-14 w-14 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-500">
                 {/* SVG icon representing code and development */}
-                <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
+                <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                </svg>
               </div>
               {/* Course Title */}
               <h3 className="font-bold text-2xl mb-4 text-gray-900">Web/Mobile App Development</h3>
               {/* Course Description */}
-              <p className="text-gray-600 leading-relaxed">Master the art of building modern, responsive web & Mobile using Best Development and coding programming tools.</p>
+              <p className="text-gray-600 leading-relaxed">
+                Master the art of building modern, responsive web & Mobile using Best Development and coding programming tools.
+              </p>
             </div>
             {/* Course Card 2: Computer Training */}
             <div className="bg-gray-50 rounded-3xl p-10 hover:shadow-2xl hover:shadow-blue-100 transition-all duration-500 border border-gray-100 group">
               {/* Icon container with hover animation effects */}
               <div className="h-14 w-14 bg-green-100 text-green-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-green-600 group-hover:text-white transition-colors duration-500">
                 {/* SVG icon representing computer basics and office work */}
-                <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
               </div>
               {/* Course Title */}
               <h3 className="font-bold text-2xl mb-4 text-gray-900">Computer Training</h3>
               {/* Course Description */}
-              <p className="text-gray-600 leading-relaxed">Perfect for beginners. Learn fundamental computer operations, office suites, and internet essentials and Special Packages.</p>
+              <p className="text-gray-600 leading-relaxed">
+                Perfect for beginners. Learn fundamental computer operations, office suites, and internet essentials and Special Packages.
+              </p>
             </div>
             {/* Course Card 3: Updated to Computer Repairs and Engineering */}
             <div className="bg-gray-50 rounded-3xl p-10 hover:shadow-2xl hover:shadow-blue-100 transition-all duration-500 border border-gray-100 group">
               {/* Icon container with hover animation effects - updated color to purple */}
               <div className="h-14 w-14 bg-purple-100 text-purple-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-purple-600 group-hover:text-white transition-colors duration-500">
                 {/* SVG icon representing engineering and repairs (wrench icon) */}
-                <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.77 3.77z" /></svg>
+                <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.77 3.77z" />
+                </svg>
               </div>
               {/* Updated Course Title */}
               <h3 className="font-bold text-2xl mb-4 text-gray-900">Computer Repairs and engineering</h3>
               {/* Updated Course Description */}
-              <p className="text-gray-600 leading-relaxed">Learn the hardware side of technology. Master troubleshooting, component replacement, and systems engineering for modern computers.</p>
+              <p className="text-gray-600 leading-relaxed">
+                Learn the hardware side of technology. Master troubleshooting, component replacement, and systems engineering for modern computers.
+              </p>
             </div>
           </div>
         </div>
@@ -134,7 +145,9 @@ export default async function HomePage() {
               {/* Decorative quotation mark */}
               <div className="absolute -top-6 left-8 text-6xl text-blue-200">&quot;</div>
               {/* Testimonial text */}
-              <p className="text-gray-700 italic text-lg mb-6 leading-relaxed">&quot;This institute transformed my career! The instructors are experts and the hands-on projects gave me the confidence I needed to land my first developer role.&quot;</p>
+              <p className="text-gray-700 italic text-lg mb-6 leading-relaxed">
+                &quot;This institute transformed my career! The instructors are experts and the hands-on projects gave me the confidence I needed to land my first developer role.&quot;
+              </p>
               {/* Student info container */}
               <div className="flex items-center gap-4">
                 {/* Avatar placeholder with initials */}
@@ -151,7 +164,9 @@ export default async function HomePage() {
               {/* Decorative quotation mark */}
               <div className="absolute -top-6 left-8 text-6xl text-blue-200">&quot;</div>
               {/* Testimonial text */}
-              <p className="text-gray-700 italic text-lg mb-6 leading-relaxed">&quot;I landed a job immediately after learning here. The curriculum is perfectly aligned with what employers are looking for in 2026.&quot;</p>
+              <p className="text-gray-700 italic text-lg mb-6 leading-relaxed">
+                &quot;I landed a job immediately after learning here. The curriculum is perfectly aligned with what employers are looking for in 2026.&quot;
+              </p>
               {/* Student info container */}
               <div className="flex items-center gap-4">
                 {/* Avatar placeholder with initials */}
@@ -176,12 +191,19 @@ export default async function HomePage() {
             {/* Left side: Heading and description */}
             <div className="max-w-2xl">
               <h2 className="text-4xl font-bold mb-4 text-gray-900">Latest from Our Blog</h2>
-              <p className="text-gray-500 text-lg font-light">Stay updated with the latest trends and insights in the world of technology, robotics, and software engineering.</p>
+              <p className="text-gray-500 text-lg font-light">
+                Stay updated with the latest trends and insights in the world of technology, robotics, and software engineering.
+              </p>
             </div>
             {/* Right side: Button to navigate to the full blog page */}
-            <Link href="/blog" className="inline-flex items-center gap-2 bg-blue-600 text-white px-8 py-4 rounded-2xl font-bold hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl shadow-blue-100 whitespace-nowrap">
+            <Link
+              href="/blog"
+              className="inline-flex items-center gap-2 bg-blue-600 text-white px-8 py-4 rounded-2xl font-bold hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl shadow-blue-100 whitespace-nowrap"
+            >
               Show all Blogs
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
             </Link>
           </div>
 
@@ -222,7 +244,9 @@ export default async function HomePage() {
                   {/* Link to read the full article */}
                   <Link href={`/blog/${blog.id}`} className="text-blue-600 font-bold text-sm flex items-center gap-2 mt-auto">
                     Read Article
-                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
                   </Link>
                 </div>
               </article>
