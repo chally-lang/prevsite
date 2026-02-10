@@ -414,7 +414,7 @@ export default function CoursesPage() {
                     </div>
                     <div className="text-right">
                       <p className="text-sm text-gray-400">Price</p>
-                      <p className="text-2xl font-bold text-primary">{course.price}</p>
+                      <p className="text-lg font-bold text-primary">{course.price}</p>
                     </div>
                   </div>
 
