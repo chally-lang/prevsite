@@ -10,7 +10,7 @@ export default function CoursesPage() {
       description: "",
       duration: "3 Months",
       level: "Beginner to Advanced",
-      price: " N60,000",
+      price: " Contact Administrator",
       topics: ["Computer Appreciation / Typing","Ms – Windows","Programming (Introduction to HTML)","Ms – Word","Ms – Excel","Ms – Power Point","Corel Draw","Internet", "E- mail", "Browsing & Basic Networking"]
     },
     {
@@ -19,7 +19,7 @@ export default function CoursesPage() {
       description: "Morning & Afternoon",
       duration: "2 Months",
       level: "Beginner to Advanced",
-      price: "N80,000",
+      price: "Contact Administrator",
       topics: ["Computer Appreciation / Typing","Windows","Programming (Introduction to HTML)","MS – Word","MS – Excel","Ms-Access","MS – Power Point","Corel Draw","Publisher","Internet", "E- mail","Browsing & Basic Networking"]
     },
     {
@@ -28,7 +28,7 @@ export default function CoursesPage() {
       description: "Create stunning visual content with Graphics Package,and design principles",
       duration: "3 Months ",
       level: "Beginner to Advanced",
-      price: "N80,000",
+      price: "Contact Administrator",
       topics: ["Corel Draw", "Color separation","Canva", "PicsArt colour", "Adobe Illustrator","Photo Paint", "Adobe Photoshop"]
     },
     {
@@ -37,7 +37,7 @@ export default function CoursesPage() {
       description: "Become perfect with computer softwares & office applications",
       duration: "4 Months",
       level: "Beginner to Advanced",
-      price: " N80,000",
+      price: " Contact Administrator",
       topics: ["Computer Appreciation / Typing","Ms – Windows","Programming (Introduction to HTML)","Ms – Word","Ms – Excel","Ms – Power Point","Corel Draw","Internet", "E- mail", "Browsing","Basic Networking"]
     },
     {
@@ -46,7 +46,7 @@ export default function CoursesPage() {
       description: "Master Computer Operations and Office Applications",
       duration: "2 Months",
       level: "Beginner to Advanced",
-      price: "N40,000",
+      price: "Contact Administrator",
       topics: ["Computer Appreciation","Ms – Windows","Programming (Introduction to HTML)","Ms – Word","Power Point","Excel"]
     },
     {
@@ -55,7 +55,7 @@ export default function CoursesPage() {
       description: "Become Perfect in Computer Operations & Use of Office Programmes",
       duration: "6 Months",
       level: "Beginner to Advanced",
-      price: " N60,000 ",
+      price: " Contact Administrator ",
       topics: ["Computer Appreciation / Typing","Ms – Windows","Programming (Introduction to HTML)","Ms – Word","Ms – Excel","Ms – Power Point","Corel Draw","Internet", "E- mail", "Browsing","Basic Networking"]
     },
       {
@@ -64,7 +64,7 @@ export default function CoursesPage() {
       description: "3 months Executive morning, afternoon and Evening, 4 months morning and afternoon Program",
       duration: "3-4 Months",
       level: "Beginner to Advanced",
-      price: " N160,000  ",
+      price: " Contact Administrator  ",
       topics: ["Computer Appreciation / Typing","Ms – Windows","Programming (Introduction to HTML)","Ms – Word","Ms – Excel","Ms – Power Point","Corel Draw","Internet", "E- mail", "Browsing","Basic Networking", "Photoshop","Canva", "PicsArt colour","Photo Paint", "Page Maker","Instant Artist","Print Artist","Typing Tutor","Adobe Illustrator","Introduction to CODING"]
     },
      {
@@ -73,7 +73,7 @@ export default function CoursesPage() {
       description: "Executive 2 months, General 3 months",
       duration: "2-3 Months",
       level: "Beginner to Advanced",
-      price: " N100,000  ",
+      price: " Contact Administrator ",
       topics: ["Computer Appreciation / Typing","Ms – Windows","Programming (Introduction to HTML)","Ms – Word","Ms – Excel","Ms – Power Point","Ms - Publisher","Corel Draw","Ms-Access","Internet", "E- mail", "Browsing","Basic Networking", "PicsArt colour","Photo Paint", "Page Maker","Instant Artist","Introduction to CODING"]
     },
      {
@@ -82,7 +82,7 @@ export default function CoursesPage() {
       description: "Mastering Computer Operations",
       duration: "3 Months",
       level: "Beginner to Advanced",
-      price: " N30,000  ",
+      price: " Contact Administrator  ",
       topics: ["Computer Appreciation / Typing","Ms – Windows","Programming (Introduction to HTML)","Ms – Word","Ms – Power Point OR Ms - Excel"]
     }
     ,
@@ -92,7 +92,7 @@ export default function CoursesPage() {
       description: "Mastering Computer Operations",
       duration: "2 Months",
       level: "Beginner to Advanced",
-      price: " N20,000  ",
+      price: " Contact Administrator  ",
       topics: ["Computer Appreciation / Typing","Ms – Windows","Programming (Introduction to HTML)","Ms – Word"]
     }
     ,
@@ -102,7 +102,7 @@ export default function CoursesPage() {
       description: "Mastering Computer Operations",
       duration: "4 Months",
       level: "Beginner to Advanced",
-      price: " N40,000  ",
+      price: " Contact Administrator ",
       topics: ["Computer Appreciation / Typing","Ms – Windows","Programming (Introduction to HTML)","Ms – Word","Ms – Power Point OR Ms - Excel"]
     }
   ];
@@ -114,7 +114,7 @@ export default function CoursesPage() {
       description: "",
       duration: "2 Months",
       level: "Special Programme",
-      price: " N100,000",
+      price: " Contact Administrator",
       topics: [""]
     },
     {
@@ -123,7 +123,7 @@ export default function CoursesPage() {
       description: "HTML 5, CSS, JavaScript",
       duration: "2 Months",
       level: "Special programme",
-      price: "N70,000",
+      price: " Contact Administrator",
     },
     {
       id: 3,
@@ -131,7 +131,7 @@ export default function CoursesPage() {
       description: "",
       duration: "2 Months",
       level: "Special programme",
-      price: "N50,000",
+      price: "Contact Administrator",
     },
      {
       id: 4,
@@ -139,7 +139,7 @@ export default function CoursesPage() {
       description: "",
       duration: "1 Month",
       level: "Special programme",
-      price: "N60,000",
+      price: "Contact Administrator",
     },
      {
       id: 5,
@@ -147,7 +147,7 @@ export default function CoursesPage() {
       description: "Mastering Cyber Security",
       duration: "3 Months",
       level: "Special programme",
-      price: "N250,000",
+      price: "Contact Administrator",
     },
        {
       id: 6,
@@ -155,7 +155,7 @@ export default function CoursesPage() {
       description: "Mastering Cyber Security",
       duration: "1 Month",
       level: "Special programme",
-      price: "N30,000",
+      price: "Contact Administrator",
     },
       {
       id: 7,
@@ -163,7 +163,7 @@ export default function CoursesPage() {
       description: "",
       duration: "1 Month",
       level: "Special programme",
-      price: "N50,000",
+      price: "Contact Administrator",
     },
       {
       id: 8,
@@ -171,7 +171,7 @@ export default function CoursesPage() {
       description: "Mastering AI & Web Development",
       duration: "1 Month",
       level: "Special programme",
-      price: "N140,000",
+      price: "Contact Administrator",
     },
     {
       id: 9,
@@ -179,7 +179,7 @@ export default function CoursesPage() {
       description: "Mastering AUTO CAD",
       duration: "1 Month",
       level: "Special programme",
-      price: "N50,000",
+      price: "Contact Administrator",
     },
     {
       id: 10,
@@ -187,7 +187,7 @@ export default function CoursesPage() {
       description: "Mastering Jamb CBT",
       duration: "1 Month",
       level: "Special programme",
-      price: "N20,000",
+      price: "Contact Administrator",
     },
      {
       id: 11,
@@ -195,7 +195,7 @@ export default function CoursesPage() {
       description: "Node.Js, JQuery/React Js (4 months),JavaScript, MongoDB/MySQL",
       duration: "4 Months",
       level: "Special programme",
-      price: "N140,000",
+      price: "Contact Administrator",
     },
       {
       id: 12,
@@ -203,7 +203,7 @@ export default function CoursesPage() {
       description: "Node.Js, Express Js, react Native, Expo and Api Integration",
       duration: "3 Months",
       level: "Special programme",
-      price: "N150,000",
+      price: "Contact Administrator",
     },
       {
       id: 13,
@@ -211,7 +211,7 @@ export default function CoursesPage() {
       description: "",
       duration: "1 Month",
       level: "Special programme",
-      price: "N20,000",
+      price: "Contact Administrator",
     },
     {
       id: 14,
@@ -219,7 +219,7 @@ export default function CoursesPage() {
       description: "",
       duration: "1 Month",
       level: "Special programme",
-      price: "N70,000",
+      price: "Contact Administrator",
     },
     {
       id: 15,
@@ -227,7 +227,7 @@ export default function CoursesPage() {
       description: "",
       duration: "4 Months",
       level: "Special programme",
-      price: "N200,000",
+      price: "Contact Administrator",
     },
     {
       id: 16,
@@ -235,7 +235,7 @@ export default function CoursesPage() {
       description: "",
       duration: "1 Month",
       level: "Special programme",
-      price: "N80,000",
+      price: "Contact Administrator",
     },
       {
       id: 17,
@@ -243,7 +243,7 @@ export default function CoursesPage() {
       description: "Data Analysis",
       duration: "2 Weeks",
       level: "Special programme",
-      price: "N50,000",
+      price: "Contact Administrator",
     },
       {
       id: 18,
@@ -251,7 +251,7 @@ export default function CoursesPage() {
       description: "Data Analysis",
       duration: "2 Months",
       level: "Special programme",
-      price: "N120,000",
+      price: "Contact Administrator",
     },
     {
       id: 19,
@@ -259,7 +259,7 @@ export default function CoursesPage() {
       description: "Data Analysis",
       duration: "1 Month",
       level: "Special programme",
-      price: "N30,000",
+      price: "Contact Administrator",
     },
       {
       id: 20,
@@ -267,7 +267,7 @@ export default function CoursesPage() {
       description: "Data Analysis",
       duration: "2 Months",
       level: "Special programme",
-      price: "N150,000",
+      price: "Contact Administrator",
     },
       {
       id: 21,
@@ -275,7 +275,7 @@ export default function CoursesPage() {
       description: "",
       duration: "3 Months",
       level: "Special programme",
-      price: "N200,000",
+      price: "Contact Administrator",
     },
      {
       id: 22,
@@ -283,7 +283,7 @@ export default function CoursesPage() {
       description: "",
       duration: "1 Month",
       level: "Special programme",
-      price: "N100,000",
+      price: "Contact Administrator",
     },
     {
       id: 23,
@@ -291,7 +291,7 @@ export default function CoursesPage() {
       description: "",
       duration: "3 Months",
       level: "Special programme",
-      price: "N300,000",
+      price: "Contact Administrator",
     },
     {
       id: 24,
@@ -299,7 +299,7 @@ export default function CoursesPage() {
       description: "",
       duration: "2 Months",
       level: "Special programme",
-      price: "N200,000",
+      price: "Contact Administrator",
     },
     {
       id: 25,
@@ -307,7 +307,7 @@ export default function CoursesPage() {
       description: "",
       duration: "2 Months",
       level: "Special programme",
-      price: "N50,000",
+      price: "Contact Administrator",
     },
      {
       id: 26,
@@ -315,7 +315,7 @@ export default function CoursesPage() {
       description: "",
       duration: "1 Month",
       level: "Special programme",
-      price: "N50,000",
+      price: "Contact Administrator",
     },
     {
       id: 27,
@@ -323,7 +323,7 @@ export default function CoursesPage() {
       description: "",
       duration: "2 Months",
       level: "Special programme",
-      price: "N180,000",
+      price: "Contact Administrator",
     },
      {
       id: 28,
@@ -331,7 +331,7 @@ export default function CoursesPage() {
       description: "",
       duration: "3 Months",
       level: "Special programme",
-      price: "N105,000",
+      price: "Contact Administrator",
     },
      {
       id: 29,
@@ -339,7 +339,7 @@ export default function CoursesPage() {
       description: "",
       duration: "12 Months",
       level: "Special programme",
-      price: "N360,000",
+      price: "Contact Administrator",
     },
 
      {
@@ -348,15 +348,15 @@ export default function CoursesPage() {
       description: "",
       duration: "6 Months",
       level: "Special programme",
-      price: "N180,000",
+      price: "Contact Administrator",
     },
        {
       id: 31,
       title: "Onlline Training /Home  Classes",
       description: "Executive Classes",
       duration: "",
-      level: "Special programme",
-      price: "",
+      level: "Special programm",
+      price: "Contact Administrator",
     },
      
   ];
